@@ -13,7 +13,7 @@ If there's several subscriptions then you may need to specify which subscription
 Let's now create the service account
 `az ad sp create-for-rbac --rol="Contributor" --scopes="/subscriptions/SUBSCRIPTION_ID"`
 
-This will output the following cable
+This will output the following table
 
 `{
   "appId": "00000000-0000-0000-0000-000000000000",
