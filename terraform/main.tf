@@ -81,6 +81,12 @@ data "azurerm_storage_account_sas" "storage_sas" {
   }
 }
 
+resource "azurerm_application_insights" "banner_insights" {
+  name                = "${var.prefix}-${var.environment}-banner-app-insights"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  application_type    = "web"
+}
 
 resource "azurerm_function_app" "function" {
   name                       = "${var.prefix}-${var.environment}-banner-app-function"
@@ -89,14 +95,16 @@ resource "azurerm_function_app" "function" {
   app_service_plan_id        = azurerm_app_service_plan.sp.id
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
+  
   version                    = "~3"
   app_settings = {
     "FUNCTIONS_WORKER_RUNTIME" = "dotnet"
+    "FUNCTIONS_EXTENSION_VERSION": "~3"
     "FUNCTION_APP_EDIT_MODE"   = "readonly"
-    "https_only"               = true
-    #"HASH"                     = base64sha256(file("./dist/function.zip"))
+    "https_only"               = false
     "HASH"                     = filebase64sha256("./dist/function.zip")
     "WEBSITE_RUN_FROM_PACKAGE" = "https://${azurerm_storage_account.storage.name}.blob.core.windows.net/${azurerm_storage_container.storage_container.name}/${azurerm_storage_blob.storage_blob.name}${data.azurerm_storage_account_sas.storage_sas.sas}"
+    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.banner_insights.instrumentation_key
   }
 
 
