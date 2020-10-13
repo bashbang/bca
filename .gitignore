@@ -1,0 +1,4 @@
+bcassessment.csproj
+obj/*
+bin/*
+.vscode
