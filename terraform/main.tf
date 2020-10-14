@@ -107,7 +107,6 @@ resource "azurerm_function_app" "function" {
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.banner_insights.instrumentation_key
   }
 
-
   tags = local.common_tags
 
 }
