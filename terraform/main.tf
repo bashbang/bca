@@ -48,7 +48,7 @@ resource "azurerm_storage_blob" "storage_blob" {
   storage_account_name   = azurerm_storage_account.storage.name
   storage_container_name = azurerm_storage_container.storage_container.name
   type                   = "Block"
-  source                 = "./dist/function.zip"
+  source                 = "../dist/function.zip"
 }
 
 
@@ -102,7 +102,7 @@ resource "azurerm_function_app" "function" {
     "FUNCTIONS_EXTENSION_VERSION" : "~3"
     "FUNCTION_APP_EDIT_MODE"         = "readonly"
     "https_only"                     = false
-    "HASH"                           = filebase64sha256("./dist/function.zip")
+    "HASH"                           = filebase64sha256("../dist/function.zip")
     "WEBSITE_RUN_FROM_PACKAGE"       = "https://${azurerm_storage_account.storage.name}.blob.core.windows.net/${azurerm_storage_container.storage_container.name}/${azurerm_storage_blob.storage_blob.name}${data.azurerm_storage_account_sas.storage_sas.sas}"
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.banner_insights.instrumentation_key
   }

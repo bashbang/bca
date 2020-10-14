@@ -9,6 +9,7 @@ updates:
   # Maintain dependencies for Terraform
   - package-ecosystem: "terraform"
     directory: "/terraform" # Location of package manifests
+    target_branch: "main"
     schedule:
       interval: "daily"
 
