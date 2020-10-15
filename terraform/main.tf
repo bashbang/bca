@@ -42,7 +42,8 @@ resource "azurerm_storage_container" "storage_container" {
   container_access_type = "private"
 }
 
-
+# TODO: The file doesn't get updated when changed.  Seems this is an issue with the module. https://github.com/terraform-providers/terraform-provider-azurerm/pull/7786
+# TODO: Following the above issue for resolution. Need to come up with a workaround to deal with this in the time being.
 resource "azurerm_storage_blob" "storage_blob" {
   name                   = "function.zip"
   storage_account_name   = azurerm_storage_account.storage.name

@@ -59,11 +59,6 @@ jobs:
       working-directory: ${{ github.workspace }}/terraform
       run: terraform fmt -check
 
-
-    - name: is  compiled source still there?
-      run: ls -la  ${{ github.workspace }}/terraform/dist/
-
-
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       working-directory: ${{ github.workspace }}/terraform
