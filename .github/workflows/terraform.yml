@@ -1,5 +1,5 @@
 name: 'Terraform'
-
+# TODO: all in one right now.  Consider separation  of TF pipeline from compile/build pipeline
 on:
   push:
     branches:
@@ -34,7 +34,8 @@ jobs:
       env:
         DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: 1
       
-    - name: Create Artifact  
+    - name: Create Artifact
+      #  TODO: add apt-update ; apt install sudo -- to help get things working in "act" since sudo is needed to install apps and it's available in the act version of the container - very odd! see: https://github.com/nektos/act/issues/269
       run: |
         sudo apt-get -y update
         sudo apt-get -y install zip
@@ -45,6 +46,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
+        # TODO: To get working in "act" may need to obtain this token and reference locally. be sure to include reference in the .gitignore to keep secret.
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
@@ -56,6 +58,11 @@ jobs:
     - name: Terraform Format
       working-directory: ${{ github.workspace }}/terraform
       run: terraform fmt -check
+
+
+    - name: is  compiled source still there?
+      run: ls -la  ${{ github.workspace }}/terraform/dist/
+
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
