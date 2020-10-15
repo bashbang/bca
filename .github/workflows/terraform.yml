@@ -22,7 +22,7 @@ jobs:
       # need to use sudo during "act" execution, but doesn't exist.  these commands will fail during normal github actions 
       #apt update
       #apt install sudo
-    run: |
+      run: |
         sudo apt-get -y update
         sudo apt-get -y install zip
 
