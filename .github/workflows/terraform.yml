@@ -34,13 +34,13 @@ jobs:
       env:
         DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: 1
       
-    # - name: Create Artifact
-    #   #  TODO: add apt-update ; apt install sudo -- to help get things working in "act" since sudo is needed to install apps and it's available in the act version of the container - very odd! see: https://github.com/nektos/act/issues/269
-    #   run: |
-    #     sudo apt-get -y update
-    #     sudo apt-get -y install zip
-    #     rm -f ${{ github.workspace }}/terraform/dist/function.zip
-    #     zip -r ${{ github.workspace }}/terraform/dist/function.zip ${{ github.workspace }}/src/bin/Release/netcoreapp3.1/linux-x64/publish/ 
+    - name: Create Artifact
+      #  TODO: add apt-update ; apt install sudo -- to help get things working in "act" since sudo is needed to install apps and it's available in the act version of the container - very odd! see: https://github.com/nektos/act/issues/269
+      run: |
+        sudo apt-get -y update
+        sudo apt-get -y install zip
+        rm -f ${{ github.workspace }}/terraform/dist/function.zip
+        zip -r -b ${{ github.workspace }}/src/bin/Release/netcoreapp3.1/linux-x64/publish/ ${{ github.workspace }}/terraform/dist/function.zip . 
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
