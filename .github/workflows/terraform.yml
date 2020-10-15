@@ -17,6 +17,14 @@ jobs:
         shell: bash
 
     steps:
+    - name: Baseline the OS & Install OS Depends
+      # sudo isn't available on the "act" version of Github Actions so the workaround is to install it
+      run: |
+        apt update
+        apt install sudo
+        sudo apt-get -y update
+        sudo apt-get -y install zip
+
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v2
@@ -30,16 +38,17 @@ jobs:
 
     - name: Build with dotnet  
       working-directory: ./src
-      run: dotnet publish --configuration Release --runtime linux-x64 --self-contained
+      run: dotnet publish --configuration Release --self-contained
       env:
         DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: 1
       
     - name: Create Artifact
-      working-directory: ${{ github.workspace }}/src/bin/Release/netcoreapp3.1/linux-x64/publish/
-      #  TODO: add apt-update ; apt install sudo -- to help get things working in "act" since sudo is needed to install apps and it's available in the act version of the container - very odd! see: https://github.com/nektos/act/issues/269
+      working-directory: ${{ github.workspace }}/src/bin/Release/netcoreapp3.1/publish/
+      # TODO: For manual changes during "act" usage.  Can we manually set the gihub.workspace variable during "act" runtime?
+      #working-directory: /github/workspace/src/bin/Release/netcoreapp3.1/publish/
+      #rm -f /github/workspace/terraform/dist/function.zip
+      #zip -r /github/workspace/terraform/dist/function.zip .  
       run: |
-        sudo apt-get -y update
-        sudo apt-get -y install zip
         rm -f ${{ github.workspace }}/terraform/dist/function.zip
         zip -r ${{ github.workspace }}/terraform/dist/function.zip .
 
