@@ -41,9 +41,9 @@ jobs:
         dest: ${{ github.workspace }}/terraform/dist/function.zip
 
 
-        
+
     - name: Validate compile worked exists
-    run: ls -la ${{ github.workspace }}/src/bin/Release/netcoreapp3.1/linux-x64/publish/
+      run: ls -la ${{ github.workspace }}/src/bin/Release/netcoreapp3.1/linux-x64/publish/
 
     - name: Validate function exists
       run: ls -la ${{ github.workspace }}/terraform/dist/
