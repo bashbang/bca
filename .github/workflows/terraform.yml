@@ -19,9 +19,10 @@ jobs:
     steps:
     - name: Baseline the OS & Install OS Depends
       # sudo isn't available on the "act" version of Github Actions so the workaround is to install it
-      run: |
-        apt update
-        apt install sudo
+      # need to use sudo during "act" execution, but doesn't exist.  these commands will fail during normal github actions 
+      #apt update
+      #apt install sudo
+    run: |
         sudo apt-get -y update
         sudo apt-get -y install zip
 
