@@ -53,7 +53,6 @@ resource "azurerm_storage_blob" "storage_blob" {
 }
 
 
-
 data "azurerm_storage_account_sas" "storage_sas" {
   connection_string = azurerm_storage_account.storage.primary_connection_string
   https_only        = false
