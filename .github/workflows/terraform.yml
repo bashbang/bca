@@ -33,22 +33,13 @@ jobs:
       run: dotnet publish --configuration Release --runtime linux-x64 --self-contained
       env:
         DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: 1
-
-    - name: Prep Deployment Package
-      uses:  papeloto/action-zip@v1
-      with:
-        files: ${{ github.workspace }}/src/bin/Release/netcoreapp3.1/linux-x64/publish/
-        dest: ${{ github.workspace }}/terraform/dist/function.zip
-
-
-
-    - name: Validate compile worked exists
-      run: ls -la ${{ github.workspace }}/src/bin/Release/netcoreapp3.1/linux-x64/publish/
-
-    - name: Validate function exists
-      run: ls -la ${{ github.workspace }}/terraform/dist/
-
-
+      
+    - name: Create Artifact  
+      run: |
+        apt-get -y update
+        apt-get -y install zip
+        rm -f ${{ github.workspace }}/terraform/dist/function.zip
+        zip -r ${{ github.workspace }}/terraform/dist/function.zip ${{ github.workspace }}/src/bin/Release/netcoreapp3.1/linux-x64/publish/ 
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
