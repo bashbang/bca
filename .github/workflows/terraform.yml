@@ -39,7 +39,7 @@ jobs:
 
     - name: Build with dotnet  
       working-directory: ./src
-      run: dotnet publish --configuration Release --self-contained
+      run: dotnet publish --configuration Release
       env:
         DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: 1
       
