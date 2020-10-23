@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "banner_with_components",
+  "info": {
+    "name": "banner_with_components",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "top": {
+      "type": "component",
+      "repeatable": true,
+      "component": "text.text"
+    },
+    "middle": {
+      "type": "component",
+      "repeatable": true,
+      "component": "text.text"
+    },
+    "bottom": {
+      "type": "component",
+      "repeatable": true,
+      "component": "text.text"
+    },
+    "image": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "link": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.link"
+    }
+  }
+}
