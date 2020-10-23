@@ -1,0 +1,120 @@
+body {
+    font-family: "Montserrat","Montserrat Regular","Hevetica",Arial,sans-serif;
+    
+}
+
+.header {
+    height: auto;
+    justify-content: inherit;
+    align-items: inherit;
+    min-width: 320px;
+}
+
+.div {
+    display: block;
+}
+
+
+/* div#public-home h1, div#public-home h2, div#public-home h3, div#public-home h4, div#public-home h5 {
+    font-family: "Montserrat","Montserrat Regular","Hevetica",Arial,sans-serif;
+    line-height: normal;
+    font-weight: 500;
+    margin: 0;
+} */
+
+/* div#public-home h3 {
+    font-size: 26px;
+    color: white;
+} */
+
+div#public-home h2 {
+    font-size: 80px;
+    color: white;
+    font-weight: 600;
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 26px;
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.bannerbeacon>h2 {
+    font-size: 80px;
+    /* font-weight: bold; */
+    font-feature-settings: "kern" 1;
+}
+
+.main-region {
+    width: auto;
+    max-width: 1200px;
+    background-color: #fff;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.bannerbeacon {
+    /* background-image: url(https://www.bcassessment.ca/Content/Images/HomePageBanners/banner-light.jpg); */
+    /* background-image: url(http://localhost:1337/uploads/banner_beacon_2f8817c03a.jpg); */
+
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 100%;
+    height: 272px;
+    /* padding-top: 4% !important; */
+    padding-left: 7% !important;
+    /* margin-top: 2%; */
+}
+
+/* .bannerbeacon > div {
+        border: 2px solid;
+        padding: 20px; 
+        width: 300px;
+        resize: both;
+        overflow: auto;
+} */
+
+@media only screen and (min-width: 1025px) {
+    .main-region {
+        width: 1200px;
+        background-color: #fff;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+/* EDIT */
+
+.edit {
+    margin-top: 5%;
+    /* width: 50%; */
+    color: black;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5%;
+}
+
+textarea {
+    width: 30%;
+}
+
+.edit label {
+    margin-right: 10px;
+}
