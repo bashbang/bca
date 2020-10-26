@@ -19,13 +19,14 @@ Let's now create the service account
 
 This will output the following cable
 
-`{
+```{
   "appId": "00000000-0000-0000-0000-000000000000",
   "displayName": "azure-cli-2017-06-05-10-41-15",
   "name": "http://azure-cli-2017-06-05-10-41-15",
   "password": "0000-0000-0000-0000-000000000000",
   "tenant": "00000000-0000-0000-0000-000000000000"
-}`
+}
+```
 
 which maps to:
 * appId is the client_id defined above.
@@ -42,6 +43,13 @@ see what you can see:
 then log out of the service account
 `az logout`
 
+If you won't have a namespace yet created in Terraform Cloud go ahead and create on
 
-Lastly we need to config Terraform Cloud with these values:
+Lastly in Terraform cloud, under workspace you wish to work in, we need to config Terraform Cloud with these variables:
+**ensure the client_secret is set to "sensitive"**
 
+subscription_id={your Azure subscription ID}
+tenant_id={tenant}
+client_id={appId}
+client_secret={password} - displayed when the service account was created **ensure the client_secret is set to "sensitive"**
+}

@@ -23,6 +23,8 @@ jobs:
       #apt update
       #apt install sudo
       run: |
+        apt update
+        apt install sudo
         sudo apt-get -y update
         sudo apt-get -y install zip
 
@@ -31,27 +33,6 @@ jobs:
       uses: actions/checkout@v2
       with:
         persist-credentials: false
-
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.100
-
-    - name: Build with dotnet  
-      working-directory: ./src
-      run: dotnet publish --configuration Release
-      env:
-        DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: 1
-      
-    - name: Create Artifact
-      working-directory: ${{ github.workspace }}/src/bin/Release/netcoreapp3.1/publish/
-      # TODO: For manual changes during "act" usage.  Can we manually set the gihub.workspace variable during "act" runtime?
-      #working-directory: /github/workspace/src/bin/Release/netcoreapp3.1/publish/
-      #rm -f /github/workspace/terraform/dist/function.zip
-      #zip -r /github/workspace/terraform/dist/function.zip .  
-      run: |
-        rm -f ${{ github.workspace }}/terraform/dist/function.zip
-        zip -r ${{ github.workspace }}/terraform/dist/function.zip .
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
