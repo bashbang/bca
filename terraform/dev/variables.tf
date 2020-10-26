@@ -1,3 +1,24 @@
+variable "location" {
+  type        = string
+  default     = "canadacentral"
+  description = "The Azure region/location where the resources will be created"
+}
+
+variable "environment" {
+  type        = string
+  default     = "dev"
+  description = "The current working environment"
+}
+
+locals {
+  common_tags = {
+    environment = var.environment
+    project     = "BC Assessment"
+    team        = "Devops"
+    owner       = "CMul"
+  }
+}
+
 variable "prefix" {
   type        = string
   default     = "bca"
@@ -6,15 +27,13 @@ variable "prefix" {
 
 variable "resource_group_name" {
   type        = string
-  default     = "banner-service"
+  default     = "k8s"
   description = "Which Azure resrouce group is this being deployed into."
 }
 
-variable "app_service_name" {
-  type        = string
-  default     = "banner-service"
-  description = "The name of the web application."
-}
+
+# client_secret, subscription_id, client_id, and tenant_id are set in Terraform Cloud as a secret
+# see variables.auto.tfvars and readme for details
 
 variable "client_secret" {
   type        = string
