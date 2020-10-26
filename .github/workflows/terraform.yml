@@ -23,8 +23,8 @@ jobs:
       #apt update
       #apt install sudo
       run: |
-        apt update
-        apt install sudo
+        #apt update
+        #apt install sudo
         sudo apt-get -y update
         sudo apt-get -y install zip
 
