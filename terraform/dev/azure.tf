@@ -1,5 +1,5 @@
 #
-# This TF sets up an environment for an Azure "Function" deployment
+# This TF sets up an environment for an Azure
 #
 
 # The basic setup of the TF environment 
@@ -34,23 +34,4 @@ provider "azurerm" {
   tenant_id       = var.tenant_id
 
   features {}
-}
-
-resource "azurerm_resource_group" "rg" {
-  name     = "${var.prefix}-${var.environment}-${var.resource_group_name}"
-  location = var.region
-  tags     = local.common_tags
-}
-
-resource "azurerm_app_service_plan" "sp" {
-  name                = "${var.prefix}-${var.environment}-${var.app_service_name}"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-
-  kind = "functionapp"
-
-  sku {
-    tier = "Dynamic"
-    size = "Y1"
-  }
 }
