@@ -2,3 +2,4 @@ bcassessment.csproj
 obj/*
 bin/*
 .vscode
+db/*
