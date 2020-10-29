@@ -15,7 +15,7 @@ spec:
       containers:
       - name: strapi
         image: devy3mrdbzlacr.azurecr.io/strapi
-    ***REMOVED***
+        ports:
         - containerPort: 80
           name: strapi
         resources:
