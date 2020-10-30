@@ -32,7 +32,7 @@ Hashicorp's tool "Terrafrom" is a mutliplatform tool (workstation executable) us
 
 So why Terraform instead of the native tool such at Azure Resource Manager (ARM) templates?  Here's a list of differences [according to Sam Cogan (Microsoft MVP)](https://docs.microsoft.com/en-us/answers/questions/59990/arm-templates-vs-terraform-in-azure.html) with some alterations by me:
 
-####ARM Templates
+##### ARM Templates
 
 * Azure specific
 * Get the latest Azure resources as they are released
@@ -41,7 +41,7 @@ So why Terraform instead of the native tool such at Azure Resource Manager (ARM)
 * Does not have a Destroy/Cleanup command
 * ARM templates follow the explicit sequencing as declared in the template
 
-####Terraform
+##### Terraform
 
 * Supports multiple cloud providers and on-prem resources
 * Can lag behind when new Azure resources are released
