@@ -36,7 +36,7 @@ jobs:
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v1.2.1
       with:
         # TODO: To get working in "act" may need to obtain this token and reference locally. be sure to include reference in the .gitignore to keep secret.
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
