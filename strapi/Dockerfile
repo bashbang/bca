@@ -7,8 +7,6 @@ RUN mkdir /srv/app && chown 1000:1000 -R /srv/app
 
 WORKDIR /src/app
 
-COPY app /src/app/
-
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 

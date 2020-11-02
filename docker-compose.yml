@@ -17,10 +17,11 @@ services:
       - DATABASE_USERNAME=
       - DATABASE_PASSWORD=
       - AUTHENTICATION_DATABASE=strapi
+      - DATABASE_SSL=false
     ports:
       - 1337:1337
     volumes:
-      - ./app:/srv/app
+      - ./strapi/app:/srv/app
     depends_on:
       - db
 
