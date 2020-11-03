@@ -53,3 +53,20 @@ tenant_id={tenant}
 client_id={appId}
 client_secret={password} - displayed when the service account was created **ensure the client_secret is set to "sensitive"**
 }
+
+
+
+Manage k8s:
+
+Get CLI to use for connecting to azuer k8s cluster
+`az aks install-cli`
+`az aks get-credentials --resource-group dev-qg9132f9-k8s --name dev-qg9132f9-aks`
+`kubectl get nodes`
+
+
+Check to see if there's any k8s upgrades available
+`az aks get-upgrades --resource-group dev-qg9132f9-k8s --name dev-qg9132f9-aks --output table `
+
+upgrade if you wish:
+`az aks upgrade --resource-group dev-qg9132f9-k8s --name dev-qg9132f9-aks --kubernetes-version 1.18.10`
+

@@ -7,7 +7,7 @@ resource "random_string" "prefix" {
 }
 
 module "bca-infrastructure" {
-  source = "git::https://github.com/bashbang/bca-tfmodues.git?ref=dev"
+  source = "git::https://github.com/bashbang/bca-tfmodues.git?ref=dev-0.0.2"
   # General module variables
   rg_name  = "${var.environment}-${random_string.prefix.id}-${var.resource_group_name}"
   location = var.location
