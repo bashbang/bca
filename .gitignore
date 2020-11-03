@@ -4,3 +4,4 @@ bin/*
 .vscode
 db/*
 .env
+variables.auto.tfvars
