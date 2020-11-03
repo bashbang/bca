@@ -1,0 +1,47 @@
+name: Build and Push
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v1.1.1
+        with:
+          username: ${{ secrets.ACR_LOGIN }}
+          password: ${{ secrets.ACR_PASSWORD }}
+          registry: ${{ secrets.ACR_NAME }}
+          repository: devqg9132f9acr.azurecr.io
+          tags: latest
+
+          # # Automatically tags the built image with the Git reference as per the readme
+          # tag_with_ref: # optional
+          # # Automatically tags the built image with the Git short SHA as per the readme
+          # tag_with_sha: # optional
+          # # Path to the build context
+          # path: # optional, default is .
+          # # Path to the Dockerfile (Default is '{path}/Dockerfile')
+          # dockerfile: # optional
+          # # Sets the target stage to build
+          # target: # optional
+          # # Always attempt to pull a newer version of the image
+          # always_pull: # optional
+          # # Comma-delimited list of build-time variables
+          # build_args: # optional
+          # # Comma-delimited list of images to consider as cache sources
+          # cache_froms: # optional
+          # # Comma-delimited list of labels to add to the built image
+          # labels: # optional
+          # # Adds labels with Git repository information to the built image
+          # add_git_labels: # optional
+          # # Whether to push the image
+          # push: # optional, default is true
+
+
