@@ -20,13 +20,12 @@ jobs:
           registry: ${{ secrets.ACR_NAME }}
           repository: devqg9132f9acr.azurecr.io
           tags: latest
+          path: strapi
 
           # # Automatically tags the built image with the Git reference as per the readme
           # tag_with_ref: # optional
           # # Automatically tags the built image with the Git short SHA as per the readme
           # tag_with_sha: # optional
-          # # Path to the build context
-          # path: # optional, default is .
           # # Path to the Dockerfile (Default is '{path}/Dockerfile')
           # dockerfile: # optional
           # # Sets the target stage to build
