@@ -23,40 +23,39 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      # - name: Use Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v2.1.2
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
-      # - run: npm install
-      # - run: npm run build --if-present
-      # - run: npm test
-      #   env:
-      #     CI: true
-
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm run build --if-present
+      - run: npm test
+        env:
+          CI: true
 
       - name: 'Login via Azure CLI'
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       
-      # - name: 'Build and push image'
-      #   uses: azure/docker-login@v1
-      #   with:
-      #     login-server: ${{ secrets.ACR_LOGIN }}
-      #     username: ${{ secrets.ACR_NAME }}
-      #     password: ${{ secrets.ACR_PASSWORD }}
-      # - run: |
-      #     docker build . -t ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }}
-      #     docker push ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }}
+      - name: 'Build and push image'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_LOGIN }}
+          username: ${{ secrets.ACR_NAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+      - run: |
+          docker build . -t ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }}
+          docker push ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }}
 
-      # - name: 'Deploy to Azure Container Instances'
-      #   uses: 'azure/aci-deploy@v1'
-      #   with:
-      #     resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-      #     dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}${{ github.run_number }}
-      #     image: ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }}
-      #     registry-login-server: ${{ secrets.ACR_LOGIN }}
-      #     registry-username: ${{ secrets.ACR_NAME }}
-      #     registry-password: ${{ secrets.ACR_PASSWORD }}
-      #     name: aci-strapi
-      #     location: 'canadacentral'
+      - name: 'Deploy to Azure Container Instances'
+        uses: 'azure/aci-deploy@v1'
+        with:
+          resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}${{ github.run_number }}
+          image: ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }}
+          registry-login-server: ${{ secrets.ACR_LOGIN }}
+          registry-username: ${{ secrets.ACR_NAME }}
+          registry-password: ${{ secrets.ACR_PASSWORD }}
+          name: aci-strapi
+          location: 'canadacentral'
