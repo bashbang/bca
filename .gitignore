@@ -5,4 +5,4 @@ bin/*
 db/*
 .env
 variables.auto.tfvars
-.secrets
+act.secrets
