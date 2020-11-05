@@ -1,10 +1,11 @@
 name: Build and Test - CI Workflow
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the main branch
 on:
-  pull_request:
-    branches: [ main ]
+  push:
+  # TODO: Change to Pull Request instead of push
+    branches:
+    - main
+    paths:
+    - "strapi/app/**"
 
 jobs:
   build:
@@ -18,14 +19,44 @@ jobs:
       matrix:
         #node-version: [10.x, 12.x, 14.x]
         node-version: [10.x]
+
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      
+      # - name: Use Node.js ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
+      # - run: npm install
+      # - run: npm run build --if-present
+      # - run: npm test
+      #   env:
+      #     CI: true
+
+
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run build --if-present
-      - run: npm test
-        env:
-          CI: true
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      # - name: 'Build and push image'
+      #   uses: azure/docker-login@v1
+      #   with:
+      #     login-server: ${{ secrets.ACR_LOGIN }}
+      #     username: ${{ secrets.ACR_NAME }}
+      #     password: ${{ secrets.ACR_PASSWORD }}
+      # - run: |
+      #     docker build . -t ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }}
+      #     docker push ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }}
+
+      # - name: 'Deploy to Azure Container Instances'
+      #   uses: 'azure/aci-deploy@v1'
+      #   with:
+      #     resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+      #     dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}${{ github.run_number }}
+      #     image: ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }}
+      #     registry-login-server: ${{ secrets.ACR_LOGIN }}
+      #     registry-username: ${{ secrets.ACR_NAME }}
+      #     registry-password: ${{ secrets.ACR_PASSWORD }}
+      #     name: aci-strapi
+      #     location: 'canadacentral'
