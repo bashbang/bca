@@ -28,7 +28,7 @@ jobs:
           resource-group: dev-qg9132f9-k8s
 
 
-      - uses: Azure/k8s-create-secret@v1
+      - uses: Azure/k8s-create-secret@v1.1
         with:
           container-registry-url: cloudlifeacr.azurecr.io
           container-registry-username: ${{ secrets.ACR_USERNAME }}
