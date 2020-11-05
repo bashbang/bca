@@ -5,3 +5,4 @@ bin/*
 db/*
 .env
 variables.auto.tfvars
+.secrets
