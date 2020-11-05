@@ -40,13 +40,15 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-             
+      
       - name: 'Build and Push Image to ACR'
-          uses: azure/CLI@v1
-          with:
-            azcliversion: 2.11.1
-            inlineScript: |
-              az acr build -t ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }} -r ${{ secrets.ACR_NAME }} .
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.11.1
+          inlineScript: |
+            pwd
+            ls -la
+            az acr build -t ${{ secrets.ACR_LOGIN }}/strapi:${{ github.sha }} -r ${{ secrets.ACR_NAME }} .
 
       # TODO: For some reason this docker push is sending the file to docker.io which we aren't using.  Perhaps there's a param missing to target the repo?
       # TODO: try from CLI manually and if that works just skip the predefined actions and do it ourselves via az cli.
