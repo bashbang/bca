@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: "devqg9132f9aks-1f0b"
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: "devqg9132f9aks-1f0b"
@@ -16,4 +16,4 @@ spec:
         - name: "devqg9132f9aks-1f0b"
           image: "devqg9132f9acr.azurecr.io/devqg9132f9aks"
           ports:
-          - containerPort: 80
+          - containerPort: 1337
