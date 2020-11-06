@@ -27,7 +27,7 @@ export default function Banner(props) {
             <div id="public-home">
                 <div className='section header' >
                     <div className='photo' >
-                        <div className="bannerDiv" style={addImage}>
+                        <div className="bannerDiv bannerlightfamily" style={addImage}>
                             <div style={{ paddingTop: "1.5em" }}>
                                 {props.children}
                             </div>
