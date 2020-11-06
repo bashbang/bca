@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './banner2.css';
 
 export default function Banner(props) {
@@ -23,11 +23,7 @@ export default function Banner(props) {
                     
                     </div>
                 </div>
-                
             </div>
-        </div>
-
-
-        
+        </div> 
     )
 }
