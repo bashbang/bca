@@ -5,3 +5,6 @@ bin/*
 db/*
 .env
 variables.auto.tfvars
+strapi_local/
+BCAHomepageClone/public/index (2).html
+src/obj
