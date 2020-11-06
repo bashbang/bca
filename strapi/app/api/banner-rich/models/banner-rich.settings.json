@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "banner_riches",
+  "info": {
+    "name": "BannerRich"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Top": {
+      "type": "richtext"
+    },
+    "Middle": {
+      "type": "richtext"
+    },
+    "Bottom": {
+      "type": "richtext"
+    },
+    "Image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    }
+  }
+}
