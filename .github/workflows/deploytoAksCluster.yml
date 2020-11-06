@@ -38,7 +38,7 @@ jobs:
         container-registry-password: ${{ secrets.acr_devqg9132f9acr_password }}
         secret-name: devqg9132f9adockerauth
        
-    - uses: azure/k8s-deploy@v1.2
+    - uses: azure/k8s-deploy@v1.3
       with:
         namespace: development
         manifests: |
