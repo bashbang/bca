@@ -16,6 +16,11 @@
       "required": true,
       "unique": true
     },
+    "lastname": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
     "description": {
       "type": "richtext",
       "required": true

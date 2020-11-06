@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "devqg9132f9aks-1f0b"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "devqg9132f9aks-1f0b"
+  template:
+    metadata:
+      labels:
+        app: "devqg9132f9aks-1f0b"
+    spec:
+      containers:
+        - name: "devqg9132f9aks-1f0b"
+          image: "devqg9132f9acr.azurecr.io/devqg9132f9aks"
+          ports:
+          - containerPort: 1337
