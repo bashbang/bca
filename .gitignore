@@ -6,3 +6,4 @@ db/*
 .env
 variables.auto.tfvars
 act.secrets
+src/obj
