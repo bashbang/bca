@@ -28,10 +28,23 @@ const configuration = {
     columns: 8, 
     documentColors: 8
   },  
-  fontFamily: {
-    supportAllValues: true
+  fontColor: {
+    colors: [
+      {
+        color: "#07819a",
+        label: "BCATeal"
+      },
+      {
+        color: "#e0f3f1",
+        label: "LightTeal"
+      },
+      {
+        color: "#FF1493",
+        label: "Sarah"
+      }
+    ] 
   },
-
+ 
   fontSize: {
     options: [
         9,
@@ -42,7 +55,8 @@ const configuration = {
         19,
         21,
         23,
-        25,30
+        25,
+        30
     ],
     supportAllValues: true
   },
@@ -53,7 +67,6 @@ const configuration = {
     'italic',
     'link',
     'fontSize',
-    'fontFamily',
     'fontColor',
     'bulletedList',
     'numberedList',
