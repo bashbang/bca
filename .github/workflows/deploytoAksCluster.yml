@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-node@v2.1.2
         with:
           node-version: ${{ matrix.node-version }}
+
           
       # The Strapi plugin needs to be built before the main project can be built
       - working-directory: strapi/app/plugins/wysiwyg
