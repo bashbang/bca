@@ -60,7 +60,7 @@ jobs:
         working-directory: strapi
         id: build-image
         run: |
-          docker build "$GITHUB_WORKSPACE/strapi" -f  "strapi/Dockerfile" -t devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
+          docker build "$GITHUB_WORKSPACE" -f  "Dockerfile" -t devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
           docker push devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
       
       - uses: azure/k8s-set-context@v1
