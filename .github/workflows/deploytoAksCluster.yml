@@ -1,3 +1,5 @@
+name: Build Test and Deploy Strapi
+
 on:
   push:
   # TODO: Change to Pull Request instead of push?
@@ -30,26 +32,31 @@ jobs:
 
           
       # The Strapi plugin needs to be built before the main project can be built
-      - working-directory: strapi/app/plugins/wysiwyg
+      - name: Install wysiwyg Plugin
+        working-directory: strapi/app/plugins/wysiwyg
         run: npm install
 
-      - working-directory: strapi/app
+      - name: Install Strapi
+        working-directory: strapi/app
         run: npm install
-      - working-directory: strapi/app
+      - name: Build Strapi
+        working-directory: strapi/app
         run: npm run build --if-present
-      # - run: npm test
+      - name: Run Tests
+        #run: npm test
         env:
           CI: true
 
 
-
-      - uses: azure/docker-login@v1
+      - name: Login to Azure
+        uses: azure/docker-login@v1
         with:
           login-server: devqg9132f9acr.azurecr.io
           username: ${{ secrets.acr_devqg9132f9acr_username }}
           password: ${{ secrets.acr_devqg9132f9acr_password }}
       
       - name: Build and push image to ACR
+        working-directory: strapi
         id: build-image
         run: |
           docker build "$GITHUB_WORKSPACE/strapi" -f  "strapi/Dockerfile" -t devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
