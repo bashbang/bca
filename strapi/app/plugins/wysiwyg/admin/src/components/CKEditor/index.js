@@ -1,24 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CKEditor from '@ckeditor/ckeditor5-react';
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document/';
 import styled from 'styled-components';
-// import strapi from 'strapi';
 
 
 const Wrapper = styled.div`
-  .ck-editor__main {
-    min-height: 200px;
-    > div {
-      min-height: 200px;
-    }
-  }
     .ck.ck-editor__editable_inline {
       border: 1px solid var(--ck-color-base-border);
       min-height: 200px;
       > div {
         min-height: 200px;
+        border-bottom: 25px;
+      },
+      .ck.ck-toolbar
+      {
+        display:block !important;
       }
   }
 `;
@@ -76,7 +73,6 @@ const configuration = {
     '|',
     'blockQuote',
     'insertTable',
-    'mediaEmbed',
     'undo',
     'redo',
   ],
@@ -84,18 +80,17 @@ const configuration = {
 
 const Editor = ({ onChange, name, value }) => {
   return (
-    <Wrapper id="toolbar-container">
+    <Wrapper>
       <CKEditor
         editor={DecoupledEditor}
         config={configuration}
         data={value}
         onInit= { editor => {
-          const toolbarContainer = document.querySelector( '#toolbar-container' );
-            toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-            toolbarContainer.appendChild( editor.ui.getEditableElement())
+          editor.ui.getEditableElement().parentElement.insertBefore(
+            editor.ui.view.toolbar.element,
+            editor.ui.getEditableElement()
+        );
 	          window.editor = editor;
-            // You can store the "editor" and use when it is needed.
-            // console.log( 'Editor is ready to use!', editor );
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
