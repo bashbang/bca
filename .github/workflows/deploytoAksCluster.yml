@@ -43,6 +43,7 @@ jobs:
         working-directory: strapi/app
         run: npm run build --if-present
       - name: Run Tests
+        run: echo "Add some tests here please!"
         #run: npm test
         env:
           CI: true
