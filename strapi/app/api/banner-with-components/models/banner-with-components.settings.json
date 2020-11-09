@@ -13,17 +13,17 @@
   "attributes": {
     "top": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "component": "text.text"
     },
     "middle": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "component": "text.text"
     },
     "bottom": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "component": "text.text"
     },
     "image": {
@@ -39,7 +39,7 @@
     },
     "link": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "component": "links.link"
     }
   }
