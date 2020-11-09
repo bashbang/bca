@@ -53,9 +53,9 @@ jobs:
           password: ${{ secrets.acr_devqg9132f9acr_password }}
       
       - name: Build and push image to ACR
-        working-directory: strapi
         id: build-image
         run: |
+          pwd
           docker build "$GITHUB_WORKSPACE/strapi" -f  "strapi/Dockerfile" -t devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
           docker push devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
       
