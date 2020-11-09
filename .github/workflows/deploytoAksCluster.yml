@@ -1,50 +1,82 @@
-on: [push]
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    
-    - uses: azure/docker-login@v1
-      with:
-        login-server: devqg9132f9acr.azurecr.io
-        username: ${{ secrets.acr_devqg9132f9acr_username }}
-        password: ${{ secrets.acr_devqg9132f9acr_password }}
-    
-    - name: Build and push image to ACR
-      id: build-image
-      run: |
-        docker build "$GITHUB_WORKSPACE/strapi" -f  "strapi/Dockerfile" -t devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
-        docker push devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
-    
-    - uses: azure/k8s-set-context@v1
-      with:
-         kubeconfig: ${{ secrets.aks_devqg9132f9aks_kubeConfig }}
-      id: login
-    
-    - name: Create namespace
-      run: |
-        namespacePresent=`kubectl get namespace | grep development | wc -l`
-        if [ $namespacePresent -eq 0 ]
-        then
-            echo `kubectl create namespace development`
-        fi
+on:
+  push:
+  # TODO: Change to Pull Request instead of push?
+    branches:
+    - main
+    paths:
+    - "strapi/app/**"
 
-    - uses: azure/k8s-create-secret@v1
-      with:
-        namespace: development
-        container-registry-url: devqg9132f9acr.azurecr.io
-        container-registry-username: ${{ secrets.acr_devqg9132f9acr_username }}
-        container-registry-password: ${{ secrets.acr_devqg9132f9acr_password }}
-        secret-name: devqg9132f9adockerauth
-       
-    - uses: azure/k8s-deploy@v1.3
-      with:
-        namespace: development
-        manifests: |
-          manifests/deployment.yml
-          manifests/service.yml
-        images: |
-          devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
-        imagepullsecrets: |
-          devqg9132f9adockerauth
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: strapi
+
+    strategy:
+      matrix:
+        #node-version: [10.x, 12.x, 14.x]
+        node-version: [10.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - working-directory: strapi/app
+        run: npm install
+      - working-directory: strapi/app
+        run: npm run build --if-present
+      # - run: npm test
+        env:
+          CI: true
+
+
+
+      - uses: azure/docker-login@v1
+        with:
+          login-server: devqg9132f9acr.azurecr.io
+          username: ${{ secrets.acr_devqg9132f9acr_username }}
+          password: ${{ secrets.acr_devqg9132f9acr_password }}
+      
+      - name: Build and push image to ACR
+        id: build-image
+        run: |
+          docker build "$GITHUB_WORKSPACE/strapi" -f  "strapi/Dockerfile" -t devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
+          docker push devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
+      
+      - uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.aks_devqg9132f9aks_kubeConfig }}
+        id: login
+      
+      - name: Create namespace
+        run: |
+          namespacePresent=`kubectl get namespace | grep development | wc -l`
+          if [ $namespacePresent -eq 0 ]
+          then
+              echo `kubectl create namespace development`
+          fi
+
+      - uses: azure/k8s-create-secret@v1
+        with:
+          namespace: development
+          container-registry-url: devqg9132f9acr.azurecr.io
+          container-registry-username: ${{ secrets.acr_devqg9132f9acr_username }}
+          container-registry-password: ${{ secrets.acr_devqg9132f9acr_password }}
+          secret-name: devqg9132f9adockerauth
+        
+      - uses: azure/k8s-deploy@v1.3
+        with:
+          namespace: development
+          manifests: |
+            manifests/deployment.yml
+            manifests/service.yml
+          images: |
+            devqg9132f9acr.azurecr.io/devqg9132f9aks:${{ github.sha }}
+          imagepullsecrets: |
+            devqg9132f9adockerauth
