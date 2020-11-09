@@ -3,8 +3,8 @@ on:
   # TODO: Change to Pull Request instead of push?
     branches:
     - main
-    paths:
-    - "strapi/app/**"
+    # paths:
+    # - "strapi/app/**"
 
 
 jobs:
