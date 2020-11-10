@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Button } from '@buffetjs/core';
 import { Label, InputDescription, InputErrors } from 'strapi-helper-plugin';
 import Editor from '../CKEditor';
-// import MediaLib from '../MediaLib';
 
 const Wysiwyg = ({
   inputDescription,
@@ -15,25 +13,11 @@ const Wysiwyg = ({
   onChange,
   value,
 }) => {
-  // const [isOpen, setIsOpen] = useState(false);
   let spacer = !isEmpty(inputDescription) ? <div style={{ height: '.4rem' }} /> : <div />;
 
   if (!noErrorsDescription && !isEmpty(errors)) {
     spacer = <div />;
   }
-
-  const handleChange = data => {
-    if (data.mime.includes('image')) {
-      const imgTag = `<p><img src="${data.url}" caption="${data.caption}" alt="${data.alternativeText}"></img></p>`;
-      const newValue = value ? `${value}${imgTag}` : imgTag;
-
-      onChange({ target: { name, value: newValue } });
-    }
-
-    // Handle videos and other type of files by adding some code
-  };
-
-  // const handleToggle = () => setIsOpen(prev => !prev);
 
   return (
     <div
@@ -43,20 +27,14 @@ const Wysiwyg = ({
         fontFamily: 'Lato',
       }}
     >
-      {/* <Label htmlFor={name} message={label} style={{ marginBottom: 10 }} /> */}
-      {/* <div */}
-        {/* <Button color="primary" onClick={handleToggle}>
-          MediaLib
-        </Button> */}
-      {/* </div> */}
-      <Editor name={name} onChange={onChange} value={value} />
-      {/* <InputDescription
+      <Label htmlFor={name} message={label} style={{ marginBottom: 10 }} />
+      <Editor name={name} label={label} onChange={onChange} value={value} />
+      <InputDescription
         message={inputDescription}
         style={!isEmpty(inputDescription) ? { marginTop: '1.4rem' } : {}}
-      /> */}
-      {/* <InputErrors errors={(!noErrorsDescription && errors) || []} name={name} /> */}
+      />
+      <InputErrors errors={(!noErrorsDescription && errors) || []} name={name} />
       {spacer}
-      {/* <MediaLib onToggle={handleToggle} isOpen={isOpen} onChange={handleChange} /> */}
     </div>
   );
 };

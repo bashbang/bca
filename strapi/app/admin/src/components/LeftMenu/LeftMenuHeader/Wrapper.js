@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Logo from '../../../assets/images/logo-strapi.png';
 
 const Wrapper = styled.div`
-  background-color: #F62459;
+  background-color: #07819a;
   padding-left: 2rem;
   height: ${props => props.theme.main.sizes.leftMenu.height};
 
