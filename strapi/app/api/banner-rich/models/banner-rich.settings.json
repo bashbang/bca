@@ -57,6 +57,11 @@
       ],
       "plugin": "upload",
       "required": false
+    },
+    "Link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.link"
     }
   }
 }
