@@ -6,7 +6,7 @@ TODO: We still need to design a git promotion strategy to move from dev to testi
 # Setup Terraform Cloud
 We fist need to setup a Azure service account to allow Terraform Cloud to manage the Azure resources and the Terraform .tfstate file.
 
-Detailed instructions here:  https://www.terraform.io/docs/providers/azurerm/guides/service_principal_client_secret.html#configuring-the-service-principal-in-terraform
+Detailed instructions [here](https://www.terraform.io/docs/providers/azurerm/guides/service_principal_client_secret.html#configuring-the-service-principal-in-terraform):
 
 Basically do this:
 `az login`
