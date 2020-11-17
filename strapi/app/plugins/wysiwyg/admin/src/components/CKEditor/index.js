@@ -29,16 +29,36 @@ const configuration = {
     colors: [
       {
         color: "#07819a",
-        label: "BCATeal"
+        label: "Teal"
       },
       {
-        color: "#e0f3f1",
-        label: "LightTeal"
+        color: "#00ABE6",
+        label: "Blue"
       },
       {
-        color: "#FF1493",
-        label: "Sarah"
-      }
+        color: "#32BCAD",
+        label: "Green"
+      },
+      {
+        color: "#79d9ee",
+        label: "Light Blue"
+      },
+      {
+        color: "#97D7D4",
+        label: "Light Green"
+      },
+      {
+        color: "#56565A",
+        label: "Dark Grey"
+      },
+      {
+        color: "#000",
+        label: "Black"
+      },
+      {
+        color: "#fff",
+        label: "White"
+      },
     ] 
   },
  
@@ -63,16 +83,11 @@ const configuration = {
     'bold',
     'italic',
     'link',
-    'fontSize',
     'fontColor',
-    'bulletedList',
-    'numberedList',
     '|',
     'indent',
     'outdent',
     '|',
-    'blockQuote',
-    'insertTable',
     'undo',
     'redo',
   ],
