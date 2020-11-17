@@ -1,36 +1,39 @@
 #!/bin/sh
-set -ea
 
-if [ "$1" = "strapi" ]; then
+tail -f /dev/null
 
-  if [ ! -f "package.json" ]; then
+# set -ea
 
-    DATABASE_CLIENT=${DATABASE_CLIENT:-sqlite}
+# if [ "$1" = "strapi" ]; then
 
-    EXTRA_ARGS=${EXTRA_ARGS}
+#   if [ ! -f "package.json" ]; then
 
-    echo "Using strapi $(strapi -v)"
-    echo "No project found at /srv/app. Creating a new strapi project"
+#     DATABASE_CLIENT=${DATABASE_CLIENT:-sqlite}
 
-    DOCKER=true strapi new . \
-      --dbclient=$DATABASE_CLIENT \
-      --dbhost=$DATABASE_HOST \
-      --dbport=$DATABASE_PORT \
-      --dbname=$DATABASE_NAME \
-      --dbusername=$DATABASE_USERNAME \
-      --dbpassword=$DATABASE_PASSWORD \
-      --dbssl=$DATABASE_SSL \
-      $EXTRA_ARGS
+#     EXTRA_ARGS=${EXTRA_ARGS}
 
-  elif [ ! -d "node_modules" ] || [ ! "$(ls -qAL node_modules 2>/dev/null)" ]; then
-    echo "Node modules not installed. Installing..."
-    if [ -f "yarn.lock" ]; then
-      yarn install
-    else
-      npm install
-    fi
-  fi
-fi
+#     echo "Using strapi $(strapi -v)"
+#     echo "No project found at /srv/app. Creating a new strapi project"
 
-echo "Starting your app..."
-exec "$@"
+#     DOCKER=true strapi new . \
+#       --dbclient=$DATABASE_CLIENT \
+#       --dbhost=$DATABASE_HOST \
+#       --dbport=$DATABASE_PORT \
+#       --dbname=$DATABASE_NAME \
+#       --dbusername=$DATABASE_USERNAME \
+#       --dbpassword=$DATABASE_PASSWORD \
+#       --dbssl=$DATABASE_SSL \
+#       $EXTRA_ARGS
+
+#   elif [ ! -d "node_modules" ] || [ ! "$(ls -qAL node_modules 2>/dev/null)" ]; then
+#     echo "Node modules not installed. Installing..."
+#     if [ -f "yarn.lock" ]; then
+#       yarn install
+#     else
+#       npm install
+#     fi
+#   fi
+# fi
+
+# echo "Starting your app..."
+# exec "$@"
