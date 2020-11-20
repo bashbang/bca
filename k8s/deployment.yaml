@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: strapi
+  namespace: development
 spec:
   replicas: 1
   selector:
@@ -14,24 +15,41 @@ spec:
     spec:
       containers:
       - name: strapi
-        image: devy3mrdbzlacr.azurecr.io/strapi:latest
+        image: devqg9132f9acr.azurecr.io/devqg9132f9aks:57b9060188be50fe6aa8296867fc21205c3604e7
+        volumeMounts:
+        - name: secrets-store-inline
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
         env:
-          - name: NAMESPACE
-            value: "ns-strapi"
-          # - name: "DATABASE_CLIENT"
-          #   value: "mongo"
-          # - name: "DATABASE_NAME"
-          #   value: "strapi"
-          # - name: "DATABASE_PORT"
-          #   value: "10255"
-          # - name: "DATABASE_HOST"
-          #   value: "
-          # - name: "DATABASE_USERNAME"
-          #   value: "
-          # - name: "DATABASE_PASSWORD"
-          #   value: ""
+          - name: "DOCKER"
+            value: "true"
           - name: "APP_NAME"
             value: "strapi-app"
+          - name: NAMESPACE
+            value: "ns-strapi"
+          - name: "DATABASE_CLIENT"
+            value: "mongo"
+          - name: "DATABASE_NAME"
+            value: "strapi"
+          - name: "DATABASE_PORT"
+            value: "10255"
+          - name: "DATABASE_SSL"
+            value: "true"
+          - name: "DATABASE_HOST"
+            valueFrom:
+              secretKeyRef:
+                name: "akv-secrets"
+                key: DATABASE_HOST
+          - name: "DATABASE_USERNAME"
+            valueFrom:
+              secretKeyRef:
+                name: "akv-secrets"
+                key: DATABASE_USERNAME
+          - name: "DATABASE_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: "akv-secrets"
+                key: DATABASE_PASSWORD
         resources:
             requests:
               cpu: '1'
@@ -42,6 +60,16 @@ spec:
         ports:
         - containerPort: 1337
           name: strapi
+      volumes:
+      # TODO: The mount isn't really needed for the DB secrets. But I'm keeping this in place incase there's a need for certs to be saved in AKV.
+      - name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-kvname"
+          nodePublishSecretRef:
+            name: secrets-store-creds
 ---
 apiVersion: v1
 kind: Service
