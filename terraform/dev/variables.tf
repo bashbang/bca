@@ -40,17 +40,7 @@ variable "client_secret" {
   description = "The Azure service principle 'password' used for Terraform Cloud deployments - this is a secret and should be deployed in Terraform Cloud - see readme.md on how to obtain this info"
 }
 
-variable "subscription_id" {
-  type        = string
-  description = "The Azure subscription ID"
-}
-
 variable "client_id" {
   type        = string
   description = "The Azure 'appId' is terraforms 'client_id'"
-}
-
-variable "tenant_id" {
-  type        = string
-  description = "The Azure 'tenant' id"
 }
