@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
     .ck.ck-editor__editable_inline {
+      background-color: #e4e4e4;
       border: 1px solid var(--ck-color-base-border);
       min-height: 200px;
       > div {
@@ -61,22 +62,6 @@ const configuration = {
         hasBorder: true
       },
     ] 
-  },
- 
-  fontSize: {
-    options: [
-        9,
-        11,
-        13,
-        'default',
-        17,
-        19,
-        21,
-        23,
-        25,
-        30
-    ],
-    supportAllValues: true
   },
   toolbar: [
     'heading',
