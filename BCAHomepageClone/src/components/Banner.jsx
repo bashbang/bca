@@ -4,20 +4,20 @@ import useWindowDimensions from './WindowDimensions'
 export default function Banner(props) {
 
     const {height, width} = useWindowDimensions(); 
-    const determineBackgroundImage = (screenWidth, image, tabletImage, mobileImage, smallMobileImage) => {
+    const determineBackgroundImage = (screenWidth, image, tabletImage, mobileImage, smallMobileImage, rootUrl) => {
         if(screenWidth > 767) {
-            return `url(http://localhost:1337${image.url})`;
+            return `url(${rootUrl}${image.url})`;
         } else  if(screenWidth > 414) {
-            return `url(http://localhost:1337${tabletImage.url})`;
+            return `url(${rootUrl}${tabletImage.url})`;
         } else if(screenWidth > 321) {
-            return `url(http://localhost:1337${mobileImage.url})`;
+            return `url(${rootUrl}${mobileImage.url})`;
         } else {
-            return `url(http://localhost:1337${smallMobileImage.url})`;
+            return `url(${rootUrl}${smallMobileImage.url})`;
         }
     };
 
     const addImage = {
-         backgroundImage: determineBackgroundImage(width, props.image, props.tabletImage, props.mobileImage, props.smallMobileImage)
+         backgroundImage: determineBackgroundImage(width, props.image, props.tabletImage, props.mobileImage, props.smallMobileImage, props.rootUrl)
     }
 
     return (

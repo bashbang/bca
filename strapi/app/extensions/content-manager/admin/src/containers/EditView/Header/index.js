@@ -94,7 +94,19 @@ const Header = ({
     let headerActions = [];
 
     const onPreviewClick = () => {
-      const previewWindow = window.open("http://localhost:3000");
+      if(PREVIEW_SITE) {
+        window.open(PREVIEW_SITE);
+      } else {
+        window.open("http://localhost:3000");
+      }
+    }
+
+    const onProductionClick = () => {
+      if(PRODUCTION_SITE) {
+        window.open(PRODUCTION_SITE);
+      } else {
+        window.open("http://localhost:3000");
+      }
     }
 
     if ((isCreatingEntry && canCreate) || (!isCreatingEntry && canUpdate)) {
@@ -119,10 +131,21 @@ const Header = ({
           type: 'button',
           onClick: onPreviewClick,
           style: {
-            minWidth: 250,
+            minWidth: 150,
             fontWeight: 600,
           },
         },
+        {
+          color: 'primary',
+          label: 'Production',
+          isLoading: false,
+          type: 'button',
+          onClick: onProductionClick,
+          style: {
+            minWidth: 150,
+            fontWeight: 600,
+          },
+        }
       ];
     }
 

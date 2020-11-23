@@ -4,6 +4,8 @@ import parse from 'html-react-parser';
 
 import Banner from './components/Banner';
 
+require('dotenv').config();
+
 function App() {
 
   const [image, setImage] = useState("");
@@ -11,16 +13,24 @@ function App() {
   const [middle, setMiddle] = useState("");
   const [bottom, setBottom] = useState("");
   const [link, setLink] = useState({});
-  // const [tabletImage, setTabletImage] = useState({});
-  // const [mobileImage, setMobileImage] = useState({});
-  // const [smallMobileImage, setSmallMobileImage] = useState({});
+  const [tabletImage, setTabletImage] = useState({});
+  const [mobileImage, setMobileImage] = useState({});
+  const [smallMobileImage, setSmallMobileImage] = useState({});
 
+  let strapi_endpoint = process.env.REACT_APP_STRAPI_API_ENDPOINT;
+  let prod_banners = process.env.REACT_APP_PROD_BANNERS;
+
+  if(strapi_endpoint) {
+    if(prod_banners === "true") {
+      strapi_endpoint = strapi_endpoint + "?_publicationState=live";
+    } else {
+      strapi_endpoint = strapi_endpoint + ("?_publicationState=preview");
+    }
+  }
 
   useEffect(() => {
-
-    axios.get('http://localhost:1337/banner-riches/1')
+    axios.get(strapi_endpoint)
       .then(data => {
-        console.log(data.data);
         setTop(data.data.Top)
         setMiddle(data.data.Middle);
         setBottom(data.data.Bottom);
@@ -31,7 +41,7 @@ function App() {
         setSmallMobileImage(data.data.SmallMobileImage);
       })
       .catch(console.error)
-   
+  
   }, []);
 
 
@@ -39,7 +49,7 @@ function App() {
     (image.formats && tabletImage && mobileImage && smallMobileImage) ?
       <div className="outer">
         <div className="App">
-          <Banner image={image} tabletImage={tabletImage} mobileImage={mobileImage} smallMobileImage={smallMobileImage}>
+          <Banner rootUrl={process.env.REACT_APP_STRAPI_ROOT} image={image} tabletImage={tabletImage} mobileImage={mobileImage} smallMobileImage={smallMobileImage}>
             {parse(top)}
             {parse(middle)}
             {parse(bottom)}
