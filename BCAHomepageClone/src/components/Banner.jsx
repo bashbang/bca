@@ -9,7 +9,11 @@ export default function Banner(props) {
     const { Image,
          TabletImage, 
          MobileImage, 
-         SmallMobileImage, Top, Middle, Bottom, Link} = props.activeBanner
+         SmallMobileImage, 
+         Top, 
+         Middle, 
+         Bottom, 
+         Link } = props.activeBanner
 
     const {height, width} = useWindowDimensions(); 
     const determineBackgroundImage = (screenWidth, image, tabletImage, mobileImage, smallMobileImage) => {
