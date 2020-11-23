@@ -57,7 +57,8 @@ const configuration = {
       },
       {
         color: "#fff",
-        label: "White"
+        label: "White",
+        hasBorder: true
       },
     ] 
   },
