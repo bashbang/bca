@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import BannerCarousel from './components/Carousel';
 
+require('dotenv').config();
+
 function App() {
 
   const [Banners, setBanners] = useState([]);
@@ -30,9 +32,20 @@ function App() {
     return banners;
   }
 
-  useEffect(() => {
+  let strapi_endpoint = process.env.REACT_APP_STRAPI_API_ENDPOINT;
+  let prod_banners = process.env.REACT_APP_PROD_BANNERS;
+  let strapi_root = process.env.REACT_APP_STRAPI_ROOT;
 
-    axios.get('http://localhost:1337/carousels')
+  if(strapi_endpoint) {
+    if(prod_banners === "true") {
+      strapi_endpoint = strapi_endpoint + "?_publicationState=live";
+    } else {
+      strapi_endpoint = strapi_endpoint + ("?_publicationState=preview");
+    }
+  }
+
+  useEffect(() => {   
+    axios.get(strapi_endpoint)
       .then(data => {
         const sorted = returnSorted(data.data);
         let BannersArr = createBannersArray(sorted)
@@ -43,7 +56,7 @@ function App() {
 
   return (
     Banners.length ? 
-    <BannerCarousel Banners={Banners}></BannerCarousel>
+    <BannerCarousel Banners={Banners} RootUrl={strapi_root}></BannerCarousel>
     : null
   )
 }

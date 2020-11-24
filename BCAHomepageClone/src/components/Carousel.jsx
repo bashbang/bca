@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Banner from './Banner';
 
+require('dotenv').config();
+
 export default function BannerCarousel(props) {
 
   const [Banners, setBanners] = useState(props.Banners)
@@ -61,17 +63,17 @@ export default function BannerCarousel(props) {
         (Banners.length ?
         <div className="outer">
           <div  className="App" style={{position: "relative"}}>
-            <Banner activeBanner={Banners[activeIndex]}/>
+            <Banner activeBanner={Banners[activeIndex]} RootUrl={props.RootUrl}/>
             <button 
               className="prev" 
-              onClick={goToNextSlide} 
+              onClick={goToPrevSlide} 
               style={buttonStyles("left")}
               >
                 <i style={iconStyles} className="fas fa-chevron-left"></i>
             </button>
             <button 
               className="next" 
-              onClick={goToPrevSlide} 
+              onClick={goToNextSlide} 
               style={buttonStyles("right")}
               >
                 <i style={iconStyles} className="fas fa-chevron-right"></i>

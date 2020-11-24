@@ -2,9 +2,7 @@ import React from 'react';
 import useWindowDimensions from './WindowDimensions'
 import parse from 'html-react-parser';
 
-
 export default function Banner(props) {
-    console.log("in banner: ", props)
 
     const { Image,
          TabletImage, 
@@ -13,23 +11,26 @@ export default function Banner(props) {
          Top, 
          Middle, 
          Bottom, 
-         Link } = props.activeBanner
+         Link,
+         } = props.activeBanner
+
+    const RootUrl = props.RootUrl;
 
     const {height, width} = useWindowDimensions(); 
-    const determineBackgroundImage = (screenWidth, image, tabletImage, mobileImage, smallMobileImage) => {
+    const determineBackgroundImage = (screenWidth, image, tabletImage, mobileImage, smallMobileImage, rootUrl) => {
         if(screenWidth > 767) {
-            return `url(http://localhost:1337${image.url})`;
+            return `url(${rootUrl}${image.url})`;
         } else  if(screenWidth > 414) {
-            return `url(http://localhost:1337${tabletImage.url})`;
+            return `url(${rootUrl}${tabletImage.url})`;
         } else if(screenWidth > 321) {
-            return `url(http://localhost:1337${mobileImage.url})`;
+            return `url(${rootUrl}${mobileImage.url})`;
         } else {
-            return `url(http://localhost:1337${smallMobileImage.url})`;
+            return `url(${rootUrl}${smallMobileImage.url})`;
         }
     };
 
     const addImage = {
-         backgroundImage: determineBackgroundImage(width, Image, TabletImage, MobileImage, SmallMobileImage)
+         backgroundImage: determineBackgroundImage(width, Image, TabletImage, MobileImage, SmallMobileImage, RootUrl)
     }
 
     return (
