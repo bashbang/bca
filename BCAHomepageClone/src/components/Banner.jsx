@@ -2,8 +2,6 @@ import React from 'react';
 import useWindowDimensions from './WindowDimensions'
 import parse from 'html-react-parser';
 
-require('dotenv').config();
-
 export default function Banner(props) {
 
     const { Image,
@@ -14,7 +12,9 @@ export default function Banner(props) {
          Middle, 
          Bottom, 
          Link,
-           } = props.activeBanner
+         } = props.activeBanner
+
+    const RootUrl = props.RootUrl;
 
     const {height, width} = useWindowDimensions(); 
     const determineBackgroundImage = (screenWidth, image, tabletImage, mobileImage, smallMobileImage, rootUrl) => {
@@ -30,7 +30,7 @@ export default function Banner(props) {
     };
 
     const addImage = {
-         backgroundImage: determineBackgroundImage(width, Image, TabletImage, MobileImage, SmallMobileImage, process.env.REACT_APP_STRAPI_ROOT)
+         backgroundImage: determineBackgroundImage(width, Image, TabletImage, MobileImage, SmallMobileImage, RootUrl)
     }
 
     return (
