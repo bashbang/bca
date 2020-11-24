@@ -64,14 +64,14 @@ export default function BannerCarousel(props) {
             <Banner activeBanner={Banners[activeIndex]}/>
             <button 
               className="prev" 
-              onClick={goToNextSlide} 
+              onClick={goToPrevSlide} 
               style={buttonStyles("left")}
               >
                 <i style={iconStyles} className="fas fa-chevron-left"></i>
             </button>
             <button 
               className="next" 
-              onClick={goToPrevSlide} 
+              onClick={goToNextSlide} 
               style={buttonStyles("right")}
               >
                 <i style={iconStyles} className="fas fa-chevron-right"></i>
