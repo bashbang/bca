@@ -1,7 +1,20 @@
 import React from 'react';
 import useWindowDimensions from './WindowDimensions'
+import parse from 'html-react-parser';
+
+require('dotenv').config();
 
 export default function Banner(props) {
+
+    const { Image,
+         TabletImage, 
+         MobileImage, 
+         SmallMobileImage, 
+         Top, 
+         Middle, 
+         Bottom, 
+         Link,
+           } = props.activeBanner
 
     const {height, width} = useWindowDimensions(); 
     const determineBackgroundImage = (screenWidth, image, tabletImage, mobileImage, smallMobileImage, rootUrl) => {
@@ -17,23 +30,36 @@ export default function Banner(props) {
     };
 
     const addImage = {
-         backgroundImage: determineBackgroundImage(width, props.image, props.tabletImage, props.mobileImage, props.smallMobileImage, props.rootUrl)
+         backgroundImage: determineBackgroundImage(width, Image, TabletImage, MobileImage, SmallMobileImage, process.env.REACT_APP_STRAPI_ROOT)
     }
 
     return (
 
-        <div className="main-region">
-            <div id="public-home">
+        props.activeBanner ?
+        <div className="main-region" >
+            
+            <div id="public-home" >
+                
                 <div className='section header' >
                     <div className='photo' >
+                   
                         <div className="bannerlightfamily" style={addImage}>
-                                {props.children}
+                            {parse(Top)}
+                            {parse(Middle)}
+                            {parse(Bottom)}
+                            <h3 style={{color: Bottom.colour}}>{Bottom.text}</h3>
+                            { 
+                            Link ? 
+                            <h3><a style={{color: "#0000EE"}} href={Link.url} target={Link.OpenInNewWindow ? "_blank" : ""}>{Link.text}</a></h3> 
+                            :
+                            null
+                            }
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        : null
 
     )
 }

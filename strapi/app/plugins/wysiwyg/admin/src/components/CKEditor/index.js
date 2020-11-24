@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
     .ck.ck-editor__editable_inline {
+      background-color: #e4e4e4;
       border: 1px solid var(--ck-color-base-border);
       min-height: 200px;
       > div {
@@ -29,33 +30,38 @@ const configuration = {
     colors: [
       {
         color: "#07819a",
-        label: "BCATeal"
+        label: "Teal"
       },
       {
-        color: "#e0f3f1",
-        label: "LightTeal"
+        color: "#00ABE6",
+        label: "Blue"
       },
       {
-        color: "#FF1493",
-        label: "Sarah"
-      }
+        color: "#32BCAD",
+        label: "Green"
+      },
+      {
+        color: "#79d9ee",
+        label: "Light Blue"
+      },
+      {
+        color: "#97D7D4",
+        label: "Light Green"
+      },
+      {
+        color: "#56565A",
+        label: "Dark Grey"
+      },
+      {
+        color: "#000",
+        label: "Black"
+      },
+      {
+        color: "#fff",
+        label: "White",
+        hasBorder: true
+      },
     ] 
-  },
- 
-  fontSize: {
-    options: [
-        9,
-        11,
-        13,
-        'default',
-        17,
-        19,
-        21,
-        23,
-        25,
-        30
-    ],
-    supportAllValues: true
   },
   toolbar: [
     'heading',
@@ -63,16 +69,11 @@ const configuration = {
     'bold',
     'italic',
     'link',
-    'fontSize',
     'fontColor',
-    'bulletedList',
-    'numberedList',
     '|',
     'indent',
     'outdent',
     '|',
-    'blockQuote',
-    'insertTable',
     'undo',
     'redo',
   ],

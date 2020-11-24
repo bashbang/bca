@@ -1,21 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import parse from 'html-react-parser';
 
-import Banner from './components/Banner';
+import BannerCarousel from './components/Carousel';
 
 require('dotenv').config();
 
 function App() {
 
-  const [image, setImage] = useState("");
-  const [top, setTop] = useState("");
-  const [middle, setMiddle] = useState("");
-  const [bottom, setBottom] = useState("");
-  const [link, setLink] = useState({});
-  const [tabletImage, setTabletImage] = useState({});
-  const [mobileImage, setMobileImage] = useState({});
-  const [smallMobileImage, setSmallMobileImage] = useState({});
+  const [Banners, setBanners] = useState([]);
+
+  const returnSorted = (data) => {
+    console.log("DATA: ", data);
+    if (data.length === 1) { 
+      return data[0];     
+    }
+    const sortedData = data.sort((a, b) => {
+      const aPublishDate = new Date(a.published_at);
+      const bPublishDate = new Date(b.published_at);
+      return bPublishDate - aPublishDate;
+    })
+    return sortedData[0];
+  }
+
+  const createBannersArray = (newest) => {
+    let banners = [];
+    for (const key in newest) {
+        if (key.includes("Banner")) {
+            banners.push(newest[key]);
+        }
+    }
+    return banners;
+  }
 
   let strapi_endpoint = process.env.REACT_APP_STRAPI_API_ENDPOINT;
   let prod_banners = process.env.REACT_APP_PROD_BANNERS;
@@ -28,43 +43,21 @@ function App() {
     }
   }
 
-  useEffect(() => {
+  useEffect(() => {   
     axios.get(strapi_endpoint)
       .then(data => {
-        setTop(data.data.Top)
-        setMiddle(data.data.Middle);
-        setBottom(data.data.Bottom);
-        setImage(data.data.Image);
-        setLink(data.data.Link);
-        setTabletImage(data.data.TabletImage);
-        setMobileImage(data.data.MobileImage);
-        setSmallMobileImage(data.data.SmallMobileImage);
+        const sorted = returnSorted(data.data);
+        let BannersArr = createBannersArray(sorted)
+        setBanners(BannersArr);
       })
       .catch(console.error)
-  
   }, []);
 
-
   return (
-    (image.formats && tabletImage && mobileImage && smallMobileImage) ?
-      <div className="outer">
-        <div className="App">
-          <Banner rootUrl={process.env.REACT_APP_STRAPI_ROOT} image={image} tabletImage={tabletImage} mobileImage={mobileImage} smallMobileImage={smallMobileImage}>
-            {parse(top)}
-            {parse(middle)}
-            {parse(bottom)}
-            <h3 style={{color: bottom.colour}}>{bottom.text}</h3>
-            { 
-            link ? 
-            <h3><a style={{color: "#0000EE"}} href={link.url} target={link.OpenInNewWindow ? "_blank" : ""}>{link.text}</a></h3> 
-            :
-              null
-            }
-          </Banner>
-        </div>
-      </div>
-      : null
-  );
+    Banners.length ? 
+    <BannerCarousel Banners={Banners}></BannerCarousel>
+    : null
+  )
 }
 
 export default App;
