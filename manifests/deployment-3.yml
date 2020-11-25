@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "devaks-e617"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "devaks-e617"
+  template:
+    metadata:
+      labels:
+        app: "devaks-e617"
+    spec:
+      containers:
+        - name: "devaks-e617"
+          image: "devgy2ryqcjacr.azurecr.io/devaks"
+          ports:
+          - containerPort: 1337
