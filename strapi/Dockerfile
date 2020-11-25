@@ -9,6 +9,14 @@ WORKDIR /src/app
 
 COPY app /src/app/
 
+# Placing the build here for now because 
+RUN cd plugins/wysiwyg/ && \
+    npm install && \
+    cd ../../ && \
+    npm install pg --save && \
+    npm install && \
+    npm run build
+
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
