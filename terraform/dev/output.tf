@@ -31,7 +31,7 @@ output "psqlpwd" {
   description = "The admin PSQL PWD"
 }
 
-output "aks-network" {
-  value = what_is_the_AKV_network_for_accessing_psql
-  description = "What is the network range for the aks"
-}
+# output "aks-network" {
+#   value = what_is_the_AKV_network_for_accessing_psql
+#   description = "What is the network range for the aks"
+# }
