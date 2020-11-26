@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "devaks-40ac"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "devaks-40ac"
+  template:
+    metadata:
+      labels:
+        app: "devaks-40ac"
+    spec:
+      containers:
+        - name: "devaks-40ac"
+          image: "devgy2ryqcjacr.azurecr.io/devaks"
+          ports:
+          - containerPort: 80
