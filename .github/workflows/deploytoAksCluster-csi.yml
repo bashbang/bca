@@ -1,0 +1,27 @@
+# .github/workflows/deploy.yml
+name: Build, Test, Deploy CSI
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - testing
+
+jobs:
+  deployment:
+    runs-on: 'ubuntu-latest'
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: 'Deploy'
+      uses: 'deliverybot/helm@v1'
+      with:
+        release: 'nginx'
+        track: 'canary'
+        namespace: 'development'
+        chart: 'app'
+        token: '${{ github.token }}'
+        values: |
+          name: csi
+      env:
+        KUBECONFIG_FILE: '${{ secrets.aks_devaks_kubeConfig }}'
