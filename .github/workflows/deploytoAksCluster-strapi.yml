@@ -42,7 +42,7 @@ jobs:
         container-registry-password: ${{ secrets.acr_devgy2ryqcjacr_password }}
         secret-name: devaksdockerauth
 
-    - uses: azure/k8s-deploy@v1.2
+    - uses: azure/k8s-deploy@v1.3
       with:
         namespace: development
         manifests: |
