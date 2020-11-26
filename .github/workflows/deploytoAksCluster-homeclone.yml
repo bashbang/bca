@@ -1,4 +1,8 @@
-on: [push]
+name: Build, Test and Deploy HomepageClone
+on:
+  pull_request:
+    branches: [ main ]
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -7,15 +11,15 @@ jobs:
     
     - uses: azure/docker-login@v1
       with:
-        login-server: dev2xzbeeqyacr.azurecr.io
-        username: ${{ secrets.acr_dev2xzbeeqyacr_username }}
-        password: ${{ secrets.acr_dev2xzbeeqyacr_password }}
+        login-server: devgy2ryqcjacr.azurecr.io
+        username: ${{ secrets.acr_devgy2ryqcjacr_username }}
+        password: ${{ secrets.acr_devgy2ryqcjacr_password }}
     
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE/strapi" -f  "strapi/Dockerfile" -t dev2xzbeeqyacr.azurecr.io/devaks:${{ github.sha }}
-        docker push dev2xzbeeqyacr.azurecr.io/devaks:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/BCAHomepageClone" -f  "BCAHomepageClone/Dockerfile" -t devgy2ryqcjacr.azurecr.io/devaks:${{ github.sha }}
+        docker push devgy2ryqcjacr.azurecr.io/devaks:${{ github.sha }}
     
     - uses: azure/k8s-set-context@v1
       with:
@@ -33,18 +37,18 @@ jobs:
     - uses: azure/k8s-create-secret@v1
       with:
         namespace: development
-        container-registry-url: dev2xzbeeqyacr.azurecr.io
-        container-registry-username: ${{ secrets.acr_dev2xzbeeqyacr_username }}
-        container-registry-password: ${{ secrets.acr_dev2xzbeeqyacr_password }}
+        container-registry-url: devgy2ryqcjacr.azurecr.io
+        container-registry-username: ${{ secrets.acr_devgy2ryqcjacr_username }}
+        container-registry-password: ${{ secrets.acr_devgy2ryqcjacr_password }}
         secret-name: devaksdockerauth
        
     - uses: azure/k8s-deploy@v1.3
       with:
         namespace: development
         manifests: |
-          manifests/deployment-1.yml
-          manifests/service-1.yml
+          manifests/deployment-4.yml
+          manifests/service-4.yml
         images: |
-          dev2xzbeeqyacr.azurecr.io/devaks:${{ github.sha }}
+          devgy2ryqcjacr.azurecr.io/devaks:${{ github.sha }}
         imagepullsecrets: |
           devaksdockerauth

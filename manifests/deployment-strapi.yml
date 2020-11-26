@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: "devaks-6c99"
+  name: "strapiapp"
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: "devaks-6c99"
+      app: "strapiapp"
   template:
     metadata:
       labels:
-        app: "devaks-6c99"
+        app: "strapiapp"
     spec:
       containers:
-        - name: "devaks-6c99"
-          image: "dev2xzbeeqyacr.azurecr.io/devaks"
+        - name: "strapiapp"
+          image: "devgy2ryqcjacr.azurecr.io/devaks"
           ports:
           - containerPort: 1337
