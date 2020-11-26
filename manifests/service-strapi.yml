@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: "devaks-e617"
+    name: "strapiapp"
     labels:
-        app: "devaks-e617"
+        app: "strapiapp"
 spec:
     type: LoadBalancer
     ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
     selector:
-        app: "devaks-e617"
+        app: "strapiapp"

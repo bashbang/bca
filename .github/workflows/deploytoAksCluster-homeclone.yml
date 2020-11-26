@@ -1,4 +1,8 @@
-on: [push]
+name: Build, Test and Deploy HomepageClone
+on:
+  pull_request:
+    branches: [ main ]
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -24,15 +28,15 @@ jobs:
     
     - name: Create namespace
       run: |
-        namespacePresent=`kubectl get namespace | grep dev-aksb474 | wc -l`
+        namespacePresent=`kubectl get namespace | grep development | wc -l`
         if [ $namespacePresent -eq 0 ]
         then
-            echo `kubectl create namespace dev-aksb474`
+            echo `kubectl create namespace development`
         fi
 
     - uses: azure/k8s-create-secret@v1
       with:
-        namespace: dev-aksb474
+        namespace: development
         container-registry-url: devgy2ryqcjacr.azurecr.io
         container-registry-username: ${{ secrets.acr_devgy2ryqcjacr_username }}
         container-registry-password: ${{ secrets.acr_devgy2ryqcjacr_password }}
@@ -40,7 +44,7 @@ jobs:
        
     - uses: azure/k8s-deploy@v1.2
       with:
-        namespace: dev-aksb474
+        namespace: development
         manifests: |
           manifests/deployment-4.yml
           manifests/service-4.yml
