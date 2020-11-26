@@ -1,31 +1,34 @@
 name: Build, Test and Deploy HomepageClone
 on:
-  pull_request:
-    branches: [ main ]
+  push:
+    branches:
+      - main
+      - dev
+      - testing
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    
+
     - uses: azure/docker-login@v1
       with:
         login-server: devgy2ryqcjacr.azurecr.io
         username: ${{ secrets.acr_devgy2ryqcjacr_username }}
         password: ${{ secrets.acr_devgy2ryqcjacr_password }}
-    
+
     - name: Build and push image to ACR
       id: build-image
       run: |
         docker build "$GITHUB_WORKSPACE/BCAHomepageClone" -f  "BCAHomepageClone/Dockerfile" -t devgy2ryqcjacr.azurecr.io/devaks:${{ github.sha }}
         docker push devgy2ryqcjacr.azurecr.io/devaks:${{ github.sha }}
-    
+
     - uses: azure/k8s-set-context@v1
       with:
          kubeconfig: ${{ secrets.aks_devaks_kubeConfig }}
       id: login
-    
+
     - name: Create namespace
       run: |
         namespacePresent=`kubectl get namespace | grep development | wc -l`
@@ -41,7 +44,7 @@ jobs:
         container-registry-username: ${{ secrets.acr_devgy2ryqcjacr_username }}
         container-registry-password: ${{ secrets.acr_devgy2ryqcjacr_password }}
         secret-name: devaksdockerauth
-       
+
     - uses: azure/k8s-deploy@v1.3
       with:
         namespace: development
