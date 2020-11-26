@@ -49,8 +49,8 @@ jobs:
       with:
         namespace: development
         manifests: |
-          manifests/deployment-4.yml
-          manifests/service-4.yml
+          manifests/deployment-homeclone.yml
+          manifests/service-homeclone.yml
         images: |
           devgy2ryqcjacr.azurecr.io/devaks:${{ github.sha }}
         imagepullsecrets: |
