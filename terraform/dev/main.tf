@@ -8,7 +8,7 @@ resource "random_string" "prefix" {
 }
 
 module "bca-infrastructure" {
-  source = "git::https://github.com/bashbang/bca-tfmodues.git?ref=dev-0.0.39"
+  source = "git::https://github.com/bashbang/bca-tfmodues.git?ref=dev-0.0.41"
   # General module variables
   rg_name  = "${var.environment}-POC"
   location = var.location

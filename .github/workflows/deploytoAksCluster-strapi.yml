@@ -1,4 +1,4 @@
-name: Build, Test Deploy Strapi
+name: Build, Test, Deploy Strapi
 on:
   push:
     branches:
