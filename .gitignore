@@ -3,7 +3,6 @@ obj/*
 bin/*
 .vscode
 db/*
-.env
 variables.auto.tfvars
 strapi_local/
 BCAHomepageClone/public/index (2).html
