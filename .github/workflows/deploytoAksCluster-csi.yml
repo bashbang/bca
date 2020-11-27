@@ -1,4 +1,3 @@
-# .github/workflows/deploy.yml
 name: Build, Test, Deploy CSI
 on:
   push:
@@ -8,20 +7,26 @@ on:
       - testing
 
 jobs:
-  deployment:
-    runs-on: 'ubuntu-latest'
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
 
-    - name: 'Deploy'
-      uses: 'deliverybot/helm@v1'
+    - uses: azure/k8s-set-context@v1
       with:
-        release: 'nginx'
-        track: 'canary'
-        namespace: 'development'
-        chart: 'app'
-        token: '${{ github.token }}'
-        values: |
-          name: csi
-      env:
-        KUBECONFIG_FILE: '${{ secrets.aks_devaks_kubeConfig }}'
+         kubeconfig: ${{ secrets.aks_devaks_kubeConfig }}
+      id: login
+
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep development | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace development`
+        fi
+
+    - uses: azure/k8s-deploy@v1.3
+      with:
+        namespace: development
+        manifests: |
+          manifests/provider-azure-installer.yaml
