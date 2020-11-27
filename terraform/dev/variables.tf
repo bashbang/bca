@@ -10,6 +10,12 @@ variable "environment" {
   description = "The current working environment"
 }
 
+variable "namespace" {
+  type = string
+  default = "development"
+  description = "The k8s namespace used for this deployment -- used for helm chart deployments for CSI"
+}
+
 locals {
   common_tags = {
     environment = var.environment

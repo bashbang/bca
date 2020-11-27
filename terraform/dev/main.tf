@@ -8,7 +8,7 @@ resource "random_string" "prefix" {
 }
 
 module "bca-infrastructure" {
-  source = "git::https://github.com/bashbang/bca-tfmodues.git?ref=dev-0.0.41"
+  source = "git::https://github.com/bashbang/bca-tfmodues.git?ref=dev-0.0.43"
   # General module variables
   rg_name  = "${var.environment}-POC"
   location = var.location
@@ -28,5 +28,6 @@ module "bca-infrastructure" {
   # AKV variables
   avk_name = "${var.environment}-${random_string.prefix.id}-akv"
 
+  # CSI helm Deployment
+  namespace = var.namespace
 }
-
