@@ -14,7 +14,7 @@ jobs:
 
     - uses: azure/k8s-set-context@v1
       with:
-         kubeconfig: ${{ secrets.aks_devaks_kubeConfig }}
+        kubeconfig: ${{ secrets.aks_devaks_kubeConfig }}
       id: login
 
     - name: Create namespace
