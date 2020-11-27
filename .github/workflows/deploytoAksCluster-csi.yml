@@ -29,4 +29,5 @@ jobs:
       with:
         namespace: development
         manifests: |
-          manifests/provider-azure-installer.yaml
+          manifests/provider-azure-installer.yml
+          managests/provider-azure-kv.yml
