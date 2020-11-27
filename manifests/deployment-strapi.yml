@@ -32,17 +32,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: "akv-secrets"
-                  key: PSQLHOST
+                  key: DBHOST
             - name: "DATABASE_USERNAME"
               valueFrom:
                 secretKeyRef:
                   name: "akv-secrets"
-                  key: PSQLUID
+                  key: DBUID
             - name: "DATABASE_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: "akv-secrets"
-                  key: PSQLPWD
+                  key: DBPWD
           resources:
             requests:
               memory: "64Mi"

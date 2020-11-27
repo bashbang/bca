@@ -13,8 +13,7 @@
 #   }
 # }
 
-# # setup for TF cloud - CLI version
-# # TODO: this will change once we have a github account setup
+# #setup for TF cloud - CLI version
 # terraform {
 #   backend "remote" {
 #     organization = "BCAssessment"
@@ -26,16 +25,15 @@
 # }
 
 
-# provider "azurerm" {
-#   # Whilst version is optional, we /strongly recommend/ using it to pin the version of the Provider being used
-#   version         = "~>2.0"
-#   subscription_id = var.subscription_id
-#   client_id       = var.client_id
-#   client_secret   = var.client_secret
-#   tenant_id       = var.tenant_id
+provider "azurerm" {
+  version         = "~>2.0"
+  subscription_id = var.subscription_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
+  tenant_id       = var.tenant_id
 
-#   features {}
-# }
+  features {}
+}
 
 # terraform {
 #   required_providers {

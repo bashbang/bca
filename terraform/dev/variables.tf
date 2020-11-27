@@ -50,3 +50,13 @@ variable "client_id" {
   type        = string
   description = "The Azure 'appId' is terraforms 'client_id'"
 }
+
+variable "subscription_id" {
+  type = string
+  description = "The Azure 'subscription id'"
+}
+
+variable "tenant_id" {
+  type = string
+  description = "The Azure 'tenant id'"
+}
