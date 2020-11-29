@@ -14,15 +14,15 @@ jobs:
 
     - uses: azure/docker-login@v1
       with:
-        login-server: devgy2ryqcjacr.azurecr.io
-        username: ${{ secrets.acr_devgy2ryqcjacr_username }}
-        password: ${{ secrets.acr_devgy2ryqcjacr_password }}
+        login-server: dev4gqggmqqacr.azurecr.io
+        username: ${{ secrets.acr_dev4gqggmqqacr_username }}
+        password: ${{ secrets.acr_dev4gqggmqqacr_password }}
 
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE/BCAHomepageClone" -f  "BCAHomepageClone/Dockerfile" -t devgy2ryqcjacr.azurecr.io/devaks:${{ github.sha }}
-        docker push devgy2ryqcjacr.azurecr.io/devaks:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/BCAHomepageClone" -f  "BCAHomepageClone/Dockerfile" -t dev4gqggmqqacr.azurecr.io/devaks:${{ github.sha }}
+        docker push dev4gqggmqqacr.azurecr.io/devaks:${{ github.sha }}
 
     - uses: azure/k8s-set-context@v1
       with:
@@ -40,9 +40,9 @@ jobs:
     - uses: azure/k8s-create-secret@v1
       with:
         namespace: development
-        container-registry-url: devgy2ryqcjacr.azurecr.io
-        container-registry-username: ${{ secrets.acr_devgy2ryqcjacr_username }}
-        container-registry-password: ${{ secrets.acr_devgy2ryqcjacr_password }}
+        container-registry-url: dev4gqggmqqacr.azurecr.io
+        container-registry-username: ${{ secrets.acr_dev4gqggmqqacr_username }}
+        container-registry-password: ${{ secrets.acr_dev4gqggmqqacr_password }}
         secret-name: devaksdockerauth
 
     - uses: azure/k8s-deploy@v1.3
@@ -52,6 +52,6 @@ jobs:
           manifests/deployment-homeclone.yml
           manifests/service-homeclone.yml
         images: |
-          devgy2ryqcjacr.azurecr.io/devaks:${{ github.sha }}
+          dev4gqggmqqacr.azurecr.io/devaks:${{ github.sha }}
         imagepullsecrets: |
           devaksdockerauth
