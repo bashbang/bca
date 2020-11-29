@@ -8,10 +8,11 @@ resource "random_string" "prefix" {
 }
 
 module "bca-infrastructure" {
-  source = "git::https://github.com/bashbang/bca-tfmodues.git?ref=dev-0.0.45"
+  source = "git::https://github.com/bashbang/bca-tfmodues.git?ref=dev-0.0.51"
   # General module variables
   rg_name  = "${var.environment}-POC"
   location = var.location
+  subscription_id = var.subscription_id
 
   # AKS Variables
   aks_cluster_name = "${var.environment}-aks"
@@ -26,7 +27,7 @@ module "bca-infrastructure" {
   psql_name = "${var.environment}-${random_string.prefix.id}-psql"
 
   # AKV variables
-  avk_name = "BCA-KeyVault"
+  avk_name = "BCA-KeyVaultPOC"
 
   # CSI helm Deployment
   namespace = var.namespace

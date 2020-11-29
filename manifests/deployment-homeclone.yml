@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: "homecloneapp"
-          image: "devgy2ryqcjacr.azurecr.io/devaks"
+          image: "dev4gqggmqqacr.azurecr.io/devaks"
           ports:
           - containerPort: 80
