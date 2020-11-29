@@ -19,7 +19,7 @@ spec:
       key: DATABASE_PASSWORD
   parameters:
     usePodIdentity: "false"
-    keyvaultName: "dev-gy2ryqcj-akv"  # TODO: Let's make the keyvault name not use random characters - eg: BCA-KeyVault
+    keyvaultName: "BCA-KeyVaultPOC"  # TODO: Let's make the keyvault name not use random characters - eg: BCA-KeyVault
     userAssignedIdentityID: "de160c75-a00c-4339-8ff8-49b297cc4e03"
     cloudName: "AzurePublicCloud"   
     objects:  |
