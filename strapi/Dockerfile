@@ -19,6 +19,8 @@ RUN cd plugins/wysiwyg/ && \
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["docker-entrypoint.sh"]
+RUN tail -f /dev/null
+
+#ENTRYPOINT ["docker-entrypoint.sh"]
 
 #CMD ["strapi", "develop"]
