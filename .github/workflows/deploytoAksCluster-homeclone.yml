@@ -15,8 +15,8 @@ jobs:
     - uses: azure/docker-login@v1
       with:
         login-server: dev4gqggmqqacr.azurecr.io
-        username: ${{ secrets.acr_dev4gqggmqqacr_username }}
-        password: ${{ secrets.acr_dev4gqggmqqacr_password }}
+        username: ${{ secrets.acr_login }}
+        password: ${{ secrets.acr_password }}
 
     - name: Build and push image to ACR
       id: build-image
@@ -41,8 +41,8 @@ jobs:
       with:
         namespace: development
         container-registry-url: dev4gqggmqqacr.azurecr.io
-        container-registry-username: ${{ secrets.acr_dev4gqggmqqacr_username }}
-        container-registry-password: ${{ secrets.acr_dev4gqggmqqacr_password }}
+        container-registry-username: ${{ secrets.acr_login }}
+        container-registry-password: ${{ secrets.acr_password }}
         secret-name: devaksdockerauth
 
     - uses: azure/k8s-deploy@v1.3
