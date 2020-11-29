@@ -28,21 +28,21 @@ spec:
               value: "5432"
             - name: "DATABASE_SSL"
               value: "true"
-            - name: "DATABASE_HOST"
-              valueFrom:
-                secretKeyRef:
-                  name: "akv-secrets"
-                  key: DBHOST
-            - name: "DATABASE_USERNAME"
-              valueFrom:
-                secretKeyRef:
-                  name: "akv-secrets"
-                  key: DBUID
-            - name: "DATABASE_PASSWORD"
-              valueFrom:
-                secretKeyRef:
-                  name: "akv-secrets"
-                  key: DBPWD
+            # - name: "DATABASE_HOST"
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: "akv-secrets"
+            #       key: DBHOST
+            # - name: "DATABASE_USERNAME"
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: "akv-secrets"
+            #       key: DBUID
+            # - name: "DATABASE_PASSWORD"
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: "akv-secrets"
+            #       key: DBPWD
           resources:
             requests:
               memory: "64Mi"
