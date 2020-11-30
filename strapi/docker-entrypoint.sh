@@ -1,6 +1,7 @@
 #!/bin/sh
 
 #npm run start
+echo "Hello Strapi"
 tail -f /dev/null
 
 # set -ea
