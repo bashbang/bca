@@ -13,4 +13,4 @@ RUN npm install && \
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
