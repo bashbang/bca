@@ -1,4 +1,5 @@
 #!/bin/sh
 
-npm start run || :
+echo "Starting Strapi App"
+npm run start
 #tail -f /dev/null
