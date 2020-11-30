@@ -1,7 +1,8 @@
 #!/bin/sh
 
-#npm run start
-tail -f /dev/null
+echo "Starting Strapi App"
+npm run start
+#tail -f /dev/null
 
 # set -ea
 
