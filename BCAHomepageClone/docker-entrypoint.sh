@@ -1,3 +1,3 @@
 #!/bin/sh
 
-#tail -f /dev/null
+tail -f /dev/null
