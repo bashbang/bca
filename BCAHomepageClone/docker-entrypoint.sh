@@ -1,4 +1,4 @@
 #!/bin/sh
 
-#npm start run
-tail -f /dev/null
+npm start run || :
+#tail -f /dev/null
