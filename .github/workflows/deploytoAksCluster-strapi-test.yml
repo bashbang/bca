@@ -15,6 +15,7 @@ jobs:
     - name: Promote image to Build and push image to ACR
       id: build-image
       run: |
+        docker pull dev4gqggmqqacr.azurecr.io/devaks:dev
         docker tag dev4gqggmqqacr.azurecr.io/devaks:dev dev4gqggmqqacr.azurecr.io/devaks:test
         docker push dev4gqggmqqacr.azurecr.io/devaks:test
 
