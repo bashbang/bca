@@ -15,7 +15,7 @@ jobs:
     - name: Promote image to Build and push image to ACR
       id: build-image
       run: |
-        docker image tag dev4gqggmqqacr.azurecr.io/devaks:dev dev4gqggmqqacr.azurecr.io/devaks:test
+        docker tag dev4gqggmqqacr.azurecr.io/devaks:dev dev4gqggmqqacr.azurecr.io/devaks:test
         docker push dev4gqggmqqacr.azurecr.io/devaks:test
 
     - uses: azure/k8s-set-context@v1
