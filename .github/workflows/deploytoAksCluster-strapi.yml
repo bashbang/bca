@@ -23,6 +23,7 @@ jobs:
       run: |
         docker build "$GITHUB_WORKSPACE/strapi" -f  "strapi/Dockerfile" -t dev4gqggmqqacr.azurecr.io/devaks:${{ secrets.github_token }} -t dev4gqggmqqacr.azurecr.io/devaks:dev
         docker push dev4gqggmqqacr.azurecr.io/devaks
+        docker image tag dev4gqggmqqacr.azurecr.io/devaks:dev dev4gqggmqqacr.azurecr.io/devaks:test
 
     - uses: azure/k8s-set-context@v1
       with:
