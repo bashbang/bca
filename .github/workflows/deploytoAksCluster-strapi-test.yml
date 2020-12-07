@@ -15,6 +15,10 @@ jobs:
     - name: Promote image to Build and push image to ACR
       id: build-image
       run: |
+        # TODO: This routine pulls the image, re-tags it, then re-pushes it.  There's deplay/load/bandwidth in the pull portion.
+        # there doesn't seem to be an easy AZ way of added a tag to an already submitted image.
+        # There actually is...but I'm not in love with the hack:
+        # I was desined for AWS, but there may be a way to do this with Azure: https://davin.ninja/amazon-ecr-adding-tag-image-already-pushed/
         docker pull dev4gqggmqqacr.azurecr.io/devaks:dev
         docker tag dev4gqggmqqacr.azurecr.io/devaks:dev dev4gqggmqqacr.azurecr.io/devaks:test
         docker push dev4gqggmqqacr.azurecr.io/devaks:test
@@ -47,6 +51,6 @@ jobs:
           manifests/deployment-strapi.yml
           manifests/service-strapi.yml
         images: |
-          dev4gqggmqqacr.azurecr.io/devaks:${{ github.sha }}
+          dev4gqggmqqacr.azurecr.io/devaks:test
         imagepullsecrets: |
           devaksdockerauth
