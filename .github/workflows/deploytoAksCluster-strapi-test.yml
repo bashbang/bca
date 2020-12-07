@@ -1,4 +1,4 @@
-name: Promote Strapi
+name: Manual Step - Promote Strapi Dev - Test
 on:
   workflow_dispatch:
 
