@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  if: github.repository_owner == 'bashbang'
   build-and-deploy:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'bashbang'
     steps:
     - uses: azure/docker-login@v1
       with:
