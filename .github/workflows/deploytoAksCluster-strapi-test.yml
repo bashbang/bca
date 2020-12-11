@@ -9,7 +9,8 @@ jobs:
     # TODO: Would prefer to check for 'owner' but can't find property name for that.
     if: github.actor == 'bashbang'
     steps:
-    - uses: azure/docker-login@v1
+    - name: Log into ACR
+      uses: azure/docker-login@v1
       with:
         login-server: dev4gqggmqqacr.azurecr.io
         username: ${{ secrets.acr_login }}
@@ -26,7 +27,8 @@ jobs:
         docker tag dev4gqggmqqacr.azurecr.io/devaks:dev dev4gqggmqqacr.azurecr.io/devaks:test
         docker push dev4gqggmqqacr.azurecr.io/devaks:test
 
-    - uses: azure/k8s-set-context@v1
+    - name: Log into AKS
+      uses: azure/k8s-set-context@v1
       with:
          kubeconfig: ${{ secrets.aks_devaks_kubeConfig }}
       id: login
@@ -39,7 +41,8 @@ jobs:
             echo `kubectl create namespace development`
         fi
 
-    - uses: azure/k8s-create-secret@v1
+    - name: Pull Registry Secrets
+      uses: azure/k8s-create-secret@v1
       with:
         namespace: testing
         container-registry-url: dev4gqggmqqacr.azurecr.io
@@ -47,7 +50,8 @@ jobs:
         container-registry-password: ${{ secrets.acr_password }}
         secret-name: devaksdockerauth
 
-    - uses: azure/k8s-deploy@v1.3
+    - name: Deploy k8s Manafests
+      uses: azure/k8s-deploy@v1.3
       with:
         namespace: testing
         manifests: |
