@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  if: github.repository_owner == 'bashbang'
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
@@ -12,7 +13,7 @@ jobs:
         username: ${{ secrets.acr_login }}
         password: ${{ secrets.acr_password }}
 
-    - name: Promote image to Build and push image to ACR
+    - name: Promote image to Test and push image to ACR
       id: build-image
       run: |
         # TODO: This routine pulls the image, re-tags it, then re-pushes it.  There's deplay/load/bandwidth in the pull portion.
