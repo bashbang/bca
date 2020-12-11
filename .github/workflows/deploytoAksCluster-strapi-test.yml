@@ -61,3 +61,12 @@ jobs:
           dev4gqggmqqacr.azurecr.io/devaks:test
         imagepullsecrets: |
           devaksdockerauth
+  permissions-failure:
+    runs-on: ubuntu-latest
+    # Display an error message if users is not 'bashbang'
+    # TODO: Would prefer to check for 'owner' but can't find property name for that.
+    if: github.actor != 'bashbang'
+    steps:
+    - name: Permissions Error
+      run: echo "You don't have permissions to run promote from dev to testing. Contact your administrator."
+      id: permission-error
