@@ -50,11 +50,9 @@ jobs:
         container-registry-password: ${{ secrets.acr_password }}
         secret-name: devaksdockerauth
 
-    - name: DEBUG
-      run: |
-        ls -la
-        ls -la manifests
-        
+    - name: Pull Repo # Needed for manifests
+      uses: actions/checkout@main
+
     - name: Deploy k8s Manafests
       uses: azure/k8s-deploy@v1.3
       with:
