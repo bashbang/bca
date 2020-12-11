@@ -52,6 +52,7 @@ jobs:
 
     - name: Deploy k8s Manafests
       uses: azure/k8s-deploy@v1.3
+      run: ls -la
       with:
         namespace: testing
         manifests: |
