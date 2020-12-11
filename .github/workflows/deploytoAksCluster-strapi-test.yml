@@ -50,9 +50,13 @@ jobs:
         container-registry-password: ${{ secrets.acr_password }}
         secret-name: devaksdockerauth
 
+    - name: DEBUG
+      run: |
+        ls -la
+        ls -la manifests
+        
     - name: Deploy k8s Manafests
       uses: azure/k8s-deploy@v1.3
-      run: ls -la
       with:
         namespace: testing
         manifests: |
@@ -63,6 +67,7 @@ jobs:
         imagepullsecrets: |
           devaksdockerauth
   permissions-failure:
+    # TODO: I'm sure there's a better way of doing this.  This UX is not good and spinning up a VM to echo out an error seems unnecessary. 
     runs-on: ubuntu-latest
     # Display an error message if users is not 'bashbang'
     # TODO: Would prefer to check for 'owner' but can't find property name for that.
