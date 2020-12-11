@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     # Check that the init is done by 'bashbang', the onwer.
     # TODO: Would prefer to check for 'owner' but can't find property name for that.
-    if: github.repository_actor == 'bashbang'
+    if: github.actor == 'bashbang'
     steps:
     - uses: azure/docker-login@v1
       with:
