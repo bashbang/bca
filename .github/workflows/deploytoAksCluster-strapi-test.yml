@@ -56,6 +56,7 @@ jobs:
         namespace: testing
         manifests: |
           manifests/deployment-strapi.yml
+          manifests/deployment-strapi.yml
           manifests/service-strapi.yml
         images: |
           dev4gqggmqqacr.azurecr.io/devaks:test
