@@ -42,7 +42,7 @@ jobs:
         fi
 
     - name: Pull Registry Secrets
-      uses: azure/k8s-create-secret@v1
+      uses: azure/k8s-create-secret@v2
       with:
         namespace: testing
         container-registry-url: dev4gqggmqqacr.azurecr.io
