@@ -24,7 +24,7 @@ jobs:
         docker build "$GITHUB_WORKSPACE/BCAHomepageClone" -f  "BCAHomepageClone/Dockerfile" -t dev4gqggmqqacr.azurecr.io/devaks:${{ github.sha }}
         docker push dev4gqggmqqacr.azurecr.io/devaks:${{ github.sha }}
 
-    - uses: azure/k8s-set-context@v1
+    - uses: azure/k8s-set-context@v2
       with:
          kubeconfig: ${{ secrets.aks_devaks_kubeConfig }}
       id: login
