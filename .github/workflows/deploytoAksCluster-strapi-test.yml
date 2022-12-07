@@ -54,7 +54,7 @@ jobs:
       uses: actions/checkout@main
 
     - name: Deploy k8s Manafests
-      uses: azure/k8s-deploy@v1.3
+      uses: azure/k8s-deploy@v4.8
       with:
         namespace: testing
         manifests: |
